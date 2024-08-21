@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:primeiro_projeto_flutter/data/task_inherited.dart';
 
 class FormScreen extends StatefulWidget {
-  const FormScreen({super.key});
+  const FormScreen({super.key, required this.taskContext});
+
+  final BuildContext taskContext;
 
   @override
   State<FormScreen> createState() => _FormScreenState();
@@ -19,6 +22,9 @@ class _FormScreenState extends State<FormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(
+            color: Colors.white
+        ),
         title: Text(
           "Nova Tarefa",
           style: TextStyle(color: Colors.white),
@@ -119,10 +125,14 @@ class _FormScreenState extends State<FormScreen> {
                   ElevatedButton(
                       onPressed: () {
                         if(_formKey.currentState!.validate()) {
-                          print(nameController.text);
-                          print(int.parse(difficultyController.text));
-                          print(imageController.text);
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Tarefa adicionada com sucesso!")));
+                          // print(nameController.text);
+                          // print(int.parse(difficultyController.text));
+                          // print(imageController.text);
+
+                          TaskInherited.of(widget.taskContext).addNewTask(nameController.text, imageController.text, int.parse(difficultyController.text));
+
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Tarefa crianda com sucesso!")));
+                          Navigator.pop(context);
                         }
                       },
                       child: Text("Adicionar"))
