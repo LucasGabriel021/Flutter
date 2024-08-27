@@ -18,6 +18,24 @@ class _FormScreenState extends State<FormScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+  // Validador dos campos de input nome e imagem
+  bool valueValidator(String? value) {
+    if(value != null && value.isEmpty) {
+      return true;
+    }
+    return false;
+  }
+
+  // Validador do campo de dificuldade
+  bool difficultyValidator(String? value) {
+    if(value != null && value.isEmpty) {
+      if(int.parse(value) < 1 || int.parse(value) > 5) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +68,7 @@ class _FormScreenState extends State<FormScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       validator: (value) {
-                        if(value != null && value.isEmpty) {
+                        if(valueValidator(value)) {
                           return "Insira um nome.";
                         }
                         return null;
@@ -68,7 +86,7 @@ class _FormScreenState extends State<FormScreen> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                       validator: (value) {
-                        if(value!.isEmpty || int.parse(value) < 1 || int.parse(value) > 5) {
+                        if(difficultyValidator(value)) {
                           return "Insira a dificuldade entre 1 e 5.";
                         }
                         return null;
@@ -90,7 +108,7 @@ class _FormScreenState extends State<FormScreen> {
                         setState(() {});
                       },
                       validator: (value) {
-                        if(value!.isEmpty) {
+                        if(valueValidator(value)) {
                           return "Insira a URL da imagem.";
                         }
                         return null;

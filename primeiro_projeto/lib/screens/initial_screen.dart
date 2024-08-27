@@ -12,7 +12,6 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,15 +20,17 @@ class _InitialScreenState extends State<InitialScreen> {
         backgroundColor: Colors.blue,
       ),
       body: ListView(
-        children: TaskInherited.of(context).taskList
+        children: TaskInherited.of(context).taskList,
+        padding: EdgeInsets.only(top: 8, bottom: 70),
       ),
       floatingActionButton: FloatingActionButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(99.0)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(99.0)),
         onPressed: () {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => FormScreen(taskContext: context,),
+                builder: (context) => FormScreen(taskContext: context)
               ),
           );
         },
